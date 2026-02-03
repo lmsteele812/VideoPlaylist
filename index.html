@@ -1,1 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Videos</title>
+
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      background: #f5f5f5;
+      margin: 0;
+      padding: 20px;
+      text-align: center;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    #player-container {
+      display: none;
+      margin-bottom: 20px;
+    }
+
+    iframe {
+      width: 100%;
+      max-width: 900px;
+      aspect-ratio: 16 / 9;
+      border-radius: 12px;
+      border: none;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 10px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: transform 0.1s;
+    }
+
+    .card:hover {
+      transform: scale(1.03);
+    }
+
+    .card img {
+      width: 100%;
+      border-radius: 8px;
+    }
+
+    .card p {
+      margin: 8px 0 0;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    #back {
+      display: none;
+      margin: 16px auto;
+      font-size: 16px;
+      padding: 10px 16px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+<h1>Choose a video</h1>
+
+<button id="back" onclick="showMenu()">⬅ Back to videos</button>
+
+<div id="player-container">
+  <iframe
+    id="player"
+    allowfullscreen
+    allow="autoplay">
+  </iframe>
+</div>
+
+<div class="grid" id="menu">
+
+  <!-- VIDEO CARD -->
+  <div class="card" onclick="play('oT6E9TbwNMo')">
+    <img src="https://img.youtube.com/vi/oT6E9TbwNMo/hqdefault.jpg">
+    <p>
+Survival Camping on Remote Scottish Island with My Son</p>
+  </div>
+
+  <div class="card" onclick="play('S_c45EOojTM')">
+    <img src="https://img.youtube.com/vi/S_c45EOojTM/hqdefault.jpg">
+    <p>Space Facts</p>
+  </div>
+
+  <div class="card" onclick="play('VIDEO_ID_3')">
+    <img src="https://img.youtube.com/vi/VIDEO_ID_3/hqdefault.jpg">
+    <p>Deep Snow Survival Camping in Alaska - Building a Winter Survival Shelter</p>
+  </div>
+
+</div>
+
+<script>
+  function play(id) {
+    const player = document.getElementById('player');
+    player.src = `https://www.youtube.com/embed/${id}?rel=0&modestbranding=1`;
+    document.getElementById('menu').style.display = 'none';
+    document.getElementById('player-container').style.display = 'block';
+    document.getElementById('back').style.display = 'inline-block';
+  }
+
+  function showMenu() {
+    document.getElementById('player').src = '';
+    document.getElementById('menu').style.display = 'grid';
+    document.getElementById('player-container').style.display = 'none';
+    document.getElementById('back').style.display = 'none';
+  }
+</script>
+
+</body>
+</html>
 
