@@ -81,13 +81,7 @@
 
 <button id="back" onclick="showMenu()">⬅ Back to videos</button>
 
-<div id="player-container">
-  <iframe
-    id="player"
-    allowfullscreen
-    allow="autoplay">
-  </iframe>
-</div>
+<div id="player"></div>
 
 <div class="grid" id="menu">
 
@@ -140,22 +134,47 @@ Engineers vs Extreme Hide & Seek</p>
 
 </div>
 
-<script>
+<script src="https://www.youtube.com/iframe_api"></script>
+ <script>
+  let player;
+
   function play(id) {
-    const player = document.getElementById('player');
-    player.src = `https://www.youtube.com/embed/${id}?rel=0&modestbranding=1`;
     document.getElementById('menu').style.display = 'none';
     document.getElementById('player-container').style.display = 'block';
     document.getElementById('back').style.display = 'inline-block';
+
+    if (player) {
+      player.loadVideoById(id);
+    } else {
+      player = new YT.Player('player', {
+        videoId: id,
+        playerVars: {
+          rel: 0,
+          modestbranding: 1
+        },
+        events: {
+          onStateChange: onPlayerStateChange
+        }
+      });
+    }
+  }
+
+  function onPlayerStateChange(event) {
+    if (event.data === YT.PlayerState.ENDED) {
+      showMenu();
+    }
   }
 
   function showMenu() {
-    document.getElementById('player').src = '';
+    if (player) {
+      player.stopVideo();
+    }
     document.getElementById('menu').style.display = 'grid';
     document.getElementById('player-container').style.display = 'none';
     document.getElementById('back').style.display = 'none';
   }
 </script>
+
 
 </body>
 </html>
